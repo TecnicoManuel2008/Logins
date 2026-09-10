@@ -35,13 +35,31 @@
                {% endif %}
                
            </div>
-           {{ form.senha.label() }}
-           {{ form.senha() }} <br>
-           
-           {{ form.confirm.label() }}
-           {{ form.confirm() }} <br>
-           
+           <div>
+               {{ form.senha.label() }}
+               {{ form.senha() }} <br>
+               
+               {% if form.senha.errors %}
+                
+                   {% for erro in form.senha.errors %}
+                      <span> {{ erro }} </span>
+                   {% endfor %}
+               {% endif %}
+           </div>
+           <div>
+               {{ form.confirm.label() }}
+               {{ form.confirm() }} <br>
+               
+               {% if form.confirm.erros %}
+               
+                  {% for erro in form.confirm.erros %}
+                     <span> {{ erro }} </span>
+                  {% endfor %}
+                  
+               {% endif %}
+           </div>
            {{ form.enviar() }}
+           
            
       </form>
 </body>

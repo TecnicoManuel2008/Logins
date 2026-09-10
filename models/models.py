@@ -15,7 +15,5 @@ class Cliente(Base):
     nome = Column(String(40), nullable=False)
     email = Column(String(50), nullable=False, unique=True)
     senha = Column(Text, nullable=False)
-    hash = Column(Text, nullable=False)
-
 
 Base.metadata.create_all(engine)

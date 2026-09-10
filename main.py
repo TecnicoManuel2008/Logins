@@ -2,7 +2,7 @@
 
 from flask import Flask, session, request, redirect, url_for, render_template
 from models.models import Cliente, Session
-from Forms.forms import FormCadastro
+from Forms.forms import FormCadastro, flash
 
 from hashlib import sha256
 
@@ -24,7 +24,7 @@ def index():
 def login():
     
     form = FormCadastro()
-    
+    flash("Ola mundo", "algu")
     if form.validate_on_submit():
         nome = form.nome.data
         email = form.email.data
@@ -33,7 +33,7 @@ def login():
         hashsenha = sha256(senha.encode('utf-8')).hexdigest()
         
         with Session() as sessao:
-            user = Cliente(nome=nome, email=email, hash=hashsenha, senha=hashsenha)
+            user = Cliente(nome=nome, email=email, senha=hashsenha)
             sessao.add(user)
             sessao.commit()
             
