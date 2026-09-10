@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html Lang="pt-br">
+<head> 
+      <meta name="Description" content="Sistema de cadastro de clientes">
+      <meta name="keywords" content="Cadastro, clientes">
+      <title> Cadastro de clientes </title>
+</head>
+<body>
+      <h1> cadastrar clientes </h1>
+      
+      <form action="/login" method="POST">
+          {{ form.hidden_tag() }}
+           
+           <div>
+               {{ form.nome.label() }}
+               {{ form.nome() }} <br>
+               {% if form.nome.errors %}
+               
+                   {% for erro in form.nome.errors %}
+                      <span> {{ erro }} </span>
+                   {% endfor %}
+                   
+               {% endif %}
+               
+           </div>
+           <div>
+               {{ form.email.label() }}
+               {{ form.email() }} <br>
+               {% if form.email.errors %}
+               
+                  {% for erro in form.email.errors %}
+                     <span> {{ erro }} </span>
+                  {% endfor %}
+                  
+               {% endif %}
+               
+           </div>
+           {{ form.senha.label() }}
+           {{ form.senha() }} <br>
+           
+           {{ form.confirm.label() }}
+           {{ form.confirm() }} <br>
+           
+           {{ form.enviar() }}
+           
+      </form>
+</body>
+</html>
