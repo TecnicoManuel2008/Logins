@@ -3,13 +3,17 @@
 from flask import Flask, session, request, redirect, url_for, render_template
 from models.models import Cliente, Session
 from Forms.forms import FormCadastro, flash
+from config.config import DevConfig
 
 from hashlib import sha256
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__)
 
-# depois vou modificar essa chave
-app.config["SECRET_KEY"] = "12345678"
+app.config.from_object(DevConfig)
 
 
 @app.route('/', methods=['GET'])
