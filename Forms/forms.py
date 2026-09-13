@@ -1,14 +1,12 @@
-from flask_wtf import FlaskForm
+from flask_wtf import FlaskForm, flash
 from wtforms import StringField, IntegerField, EmailField,  PasswordField, SubmitField
-from wtforms.validators import DataRequired, Length, Email,EqualTo
+from wtforms.validators import DataRequired, Length, Email, EqualTo
 
 # CLASS FORMULATORIO
 class FormCadastro(FlaskForm):
     # criar os inputs
     
-    nome = StringField("Nome", validators=[
-         DataRequired(),
-     ])
+    nome = StringField("Nome", validators=[DataRequired()])
     email = EmailField("Emall", validators=[
         DataRequired(), 
         Email()

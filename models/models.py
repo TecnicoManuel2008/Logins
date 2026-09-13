@@ -17,5 +17,4 @@ class Cliente(Base):
     email = Column(String(50), nullable=False, unique=True)
     hash = Column(Text, nullable=False)
 
-
 Base.metadata.create_all(engine)
