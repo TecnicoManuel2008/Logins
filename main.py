@@ -1,7 +1,8 @@
 # mini-projecto: cadastro de clientes
 
-from flask import Flask, session, request, redirect, url_for, render_template
+from flask import Flask, session, flash, request, redirect, url_for, render_template
 from models.models import Cliente, Session
+from sqlalchemy.exc import IntegrityError
 from Forms.forms import FormCadastro
 
 from hashlib import sha256
@@ -33,21 +34,33 @@ def login():
         hashsenha = sha256(senha.encode('utf-8')).hexdigest()
         
         with Session() as sessao:
-            user = Cliente(nome=nome, email=email, hash=hashsenha, senha=hashsenha)
-            sessao.add(user)
-            sessao.commit()
-            
-        session['user'] = nome
-        session["logado"] = True
+            try:
+                user = Cliente(nome=nome, email=email, hash=hashsenha)
+                sessao.add(user)
+                sessao.commit()
+                
+                session['user_id'] = user.id
+                session['user'] = nome
+                session["logado"] = True
+                
+                flash("Sucesso no login", "sucesso")
+                
+                return redirect(url_for("perfil"))
+                
+            except IntegrityError:
+                flash("Email já usado", 'Erro')
+                return redirect(url_for('index'))
         
-        return "ligado ..."
         
     return redirect(url_for('index'))
         
 
 @app.route("/perfil")
 def perfil():
-    return f"Perfil senhor(a) {session['user']} "
+    if "logado" in session:
+        flash('Tem que fazer Login primeiro ', "Erro")
+        return redirect(url_for('index'))
+    return render_template("perfil.html")
     
     
 if __name__ == '__main__':

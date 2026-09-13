@@ -8,6 +8,14 @@
 <body>
       <h1> cadastrar clientes </h1>
       
+      {% with messagens = get_flashed_messages(with_categories=true) %}
+          {% for cat, message in messagens %}
+                 <div class="{{ cat }}">
+                     <h1>{{ message }}</h1>
+                 </div>
+          {% endfor %}
+      {% endwith %}
+      
       <form action="/login" method="POST">
           {{ form.hidden_tag() }}
            
@@ -17,7 +25,7 @@
                {% if form.nome.errors %}
                
                    {% for erro in form.nome.errors %}
-                      <span> {{ erro }} </span>
+                      <h1> {{ erro }} </h1>
                    {% endfor %}
                    
                {% endif %}
@@ -29,12 +37,13 @@
                {% if form.email.errors %}
                
                   {% for erro in form.email.errors %}
-                     <span> {{ erro }} </span>
+                     <h1> {{ erro }} </h1>
                   {% endfor %}
                   
                {% endif %}
                
            </div>
+           
            {{ form.senha.label() }}
            {{ form.senha() }} <br>
            
