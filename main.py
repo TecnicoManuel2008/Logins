@@ -4,7 +4,7 @@ from flask import Flask, session, flash, request, redirect, url_for, render_temp
 from models.models import Cliente, Session
 
 from sqlalchemy.exc import IntegrityError
-from Forms.forms import FormCadastro, flash
+from Forms.forms import FormCadastro
 from config.config import DevConfig
 
 from hashlib import sha256
@@ -30,7 +30,7 @@ def index():
 def login():
 
     form = FormCadastro()
-    flash("Ola mundo", "algu")
+  
     if form.validate_on_submit():
         nome = form.nome.data
         email = form.email.data
@@ -53,7 +53,7 @@ def login():
 
                 return redirect(url_for("perfil"))
 
-            except IntegrityError:
+            except ValueError:
                 flash("Email já usado", 'Erro')
                 return redirect(url_for('index'))
 
@@ -62,10 +62,12 @@ def login():
 
 @app.route("/perfil")
 def perfil():
-    if "logado" in session:
+    if "logado" not in session:
+        
         flash('Tem que fazer Login primeiro ', "Erro")
         return redirect(url_for('index'))
-    return render_template("perfil.html")
+        
+    return render_template("perfil.html", estado=session)
 
 if __name__ == '__main__':
     app.run(debug=True)
