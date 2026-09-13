@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+     <title>perfil </title>
+</head>
+<body>
+      {% with messagens = get_flashed_messages(with_categories=true) %}
+          {% for cat, message in messagens %}
+                 <div class="{{ cat }}">
+                     <h1>{{ message }}</h1>
+                 </div>
+          {% endfor %}
+      {% endwith %}
+      <h1> O seu perfil meu caro </h1>
+</body>
+</html>
