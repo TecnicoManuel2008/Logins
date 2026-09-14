@@ -13,6 +13,8 @@ class Config:
    SESSION_COOKIE_HTTPONLY = True
    REMEMBER_COOKIE_HTTPONLY = True
 
+   WTF_CSRF_ENABLE = True
+
 
 class DevConfig(Config):
    DEBUG = True
