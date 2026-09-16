@@ -1,5 +1,6 @@
 # mini-projecto: cadastro de clientes
 
+# importando as bibliotecas principais
 from flask import Flask, session, flash, request, redirect, url_for, render_template
 from models.models import Cliente, Session
 
@@ -7,6 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from Forms.forms import FormCadastro
 from config.config import DevConfig
 
+# utiliasando hashs para criptografar
 from hashlib import sha256
 
 from dotenv import load_dotenv
@@ -30,7 +32,7 @@ def index():
 def login():
 
     form = FormCadastro()
-  
+
     if form.validate_on_submit():
         nome = form.nome.data
         email = form.email.data
@@ -63,10 +65,10 @@ def login():
 @app.route("/perfil")
 def perfil():
     if "logado" not in session:
-        
+
         flash('Tem que fazer Login primeiro ', "Erro")
         return redirect(url_for('index'))
-        
+
     return render_template("perfil.html", estado=session)
 
 if __name__ == '__main__':
