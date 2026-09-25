@@ -9,11 +9,11 @@ class FormCadastro(FlaskForm):
     nome = StringField("Nome", validators=[DataRequired()])
     email = EmailField("Emall", validators=[
         DataRequired(), 
-        Email()
+        Email(message="Tem que digitar @")
     ])
     senha = PasswordField("Senha", validators=[
-       DataRequired(), 
-       Length(min=6, max=15, message="À senha precisa ter 8 letras")
+       DataRequired(message="Vc tem que digitar algo"), 
+       Length(min=8, max=15, message="À senha precisa ter 8 letras")
     ])
     confirm = PasswordField("confirmar", validators=[
        EqualTo("senha", message="Essa password tem que igual a primeira")
