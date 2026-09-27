@@ -55,7 +55,8 @@ def login():
 
                 return redirect(url_for("perfil"))
 
-            except ValueError:
+            except IntegrityError:
+                sessao.rollback()
                 flash("Email já usado", 'Erro')
                 return redirect(url_for('index'))
 
